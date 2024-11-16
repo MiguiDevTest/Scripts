@@ -4,11 +4,11 @@ import pandas as pd
 
 def logsfilter():
 
-    dir = "C:\\Users\\USER\\Desktop\\Python\\Scripts\\logs"
+    dir = ""
 
-    file_result = "C:\\Users\\USER\\Desktop\\Python\\Scripts\\Destiny\\result.txt"
+    file_result = ""
 
-    same_words = ["Move files", "Connected to the SFTP", "Files moved successfully", "Down" , "0x00",  "Starting the script"]
+    repeated_words = ["Whatever"]
 
 
     try:
@@ -28,7 +28,7 @@ def logsfilter():
             print(f"Processing file: {file_path}")
 
             try:
-                
+
                 df = pd.read_csv(file_path)
 
                 selected_columns = df[["ACTION", "STATUS", "SUMMARY"]]
@@ -37,7 +37,7 @@ def logsfilter():
                 combined = selected_columns.apply(lambda row: " ".join(row.values.astype(str)), axis=1)
 
                 # Remove words/phrases in same_words
-                for word in same_words:
+                for word in repeated_words:
                     combined = combined.str.replace(word, "", regex=False)
 
                 # Filter out empty rows after removing words/phrases
